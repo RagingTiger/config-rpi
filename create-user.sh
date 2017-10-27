@@ -22,7 +22,7 @@ setup_sshkey(){
 
   # now instruct user on how to copy keys
   echo "Execute on your local machine (assumes rpi is on local network):"
-  echo "  $ scp ~/.ssh/id_rsa.pub ${1}@$(hostname):/home/${1}/.ssh/authorized_keys"
+  echo "  $ scp ~/.ssh/id_rsa.pub ${1}@$(hostname).local:/home/${1}/.ssh/authorized_keys"
   echo ""
 
 
