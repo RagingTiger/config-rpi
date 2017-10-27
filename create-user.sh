@@ -28,10 +28,10 @@ setup_sshkey(){
 
   # now confirm keys are copied, print next steps, and logout
   echo "After keys are copied, logout of pi user and execute the following: "
-  echo "  $ ssh ${1}@$(hostname)"
+  echo "  $ ssh ${1}@$(hostname).local"
   echo ""
   echo "Followed by:"
-  echo "  $ sudo deluser pi"
+  echo "  $ sudo deluser pi && sudo rm -rf /home/pi"
   exit
 }
 
