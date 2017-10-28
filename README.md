@@ -4,6 +4,6 @@ tutorial on setting up a new user for the **raspberry pi**, and **deleting**
 the **pi** user.
 
 ## Install
-```
+```shell
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/RagingTiger/create-rpi-user/master/create-user.sh)"
 ```
