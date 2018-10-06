@@ -7,3 +7,6 @@ the **pi** user.
 ```shell
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/RagingTiger/create-rpi-user/master/create-user.sh)"
 ```
+
+## TODO
+1. Add docker install sub option (--docker)
