@@ -10,3 +10,4 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/RagingTiger/create-rpi-u
 
 ## TODO
 1. Add docker install sub option (--docker)
+2. Add WiFi auto-join sub option (--wifi) ref: https://learn.adafruit.com/adafruits-raspberry-pi-lesson-3-network-setup/setting-up-wifi-with-occidentalis
