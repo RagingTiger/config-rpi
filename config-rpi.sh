@@ -52,7 +52,9 @@ setup_wifi(){
   psswd=$(get_response '*' true)
 
   # create here doc and append to file
-  cat <<EOF >> $1
+  sudo cat <<EOF | sudo tee -a /etc/network/interfaces
+# added through config-rpi.sh script
+# ref: https://github.com/RagingTiger/config-rpi
 auto lo
 
 iface lo inet loopback
