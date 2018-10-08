@@ -2,12 +2,48 @@
 
 # Reference: https://gordonlesti.com/change-default-users-on-raspberry-pi/
 
+prompt(){
+  # prompt user
+  echo -n "$1"
+
+}
+
+get_response(){
+  # get user input
+  local response
+  read response
+
+  # determine action
+  case $response in
+    $2)
+      # execute function
+
+      $1
+      ;;
+
+    *)
+      # do nothing
+      :
+      ;;
+  esac
+
+  # optional return
+  if $3; then
+    echo "$response"
+  fi
+}
+
 setup_user(){
-  # first add new user
-  sudo adduser $1
+  # prompt/get response
+  prompt "Input new username: "
+  local username
+  username=$(get_response '*' true)
+
+  # next add new user
+  echo "sudo adduser $username"
 
   # now add to sudo group
-  sudo adduser $1 sudo
+  echo "sudo adduser $username sudo"
 }
 
 setup_sshkey(){
@@ -37,22 +73,16 @@ setup_sshkey(){
 
 main(){
   # get new user
-  echo -n "Enter name of new raspberrypi user: "
-  local newuser
-  read newuser
+  prompt "Would you like to setup new RPi user? [Y/n]: "
+  get_response setup_user 'Y' false
 
-  # check user
-  if [[ $newuser ]]; then
-      # setup new user
-      setup_user "$newuser"
+  # prompt for docker install
+  prompt "Would you like to install docker? [Y/n]: "
+  get_response setup_docker 'Y' false
 
-      # setup new ssh key
-      setup_sshkey "$newuser"
-
-  else
-      echo "User not supplied (Your user was \"${newuser}\". Exiting ..."
-      exit
-  fi
+  # prompt for sshkey
+  prompt "Would you like to setup SSH now? [Y/n]: "
+  get_response setup_sshkey 'Y' false
 }
 
 main
