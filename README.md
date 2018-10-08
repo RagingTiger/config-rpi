@@ -5,7 +5,7 @@ the **pi** user.
 
 ## Install
 ```shell
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/RagingTiger/create-rpi-user/master/create-user.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/RagingTiger/config-rpi/master/config-rpi.sh)"
 ```
 
 ## TODO
