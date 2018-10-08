@@ -33,6 +33,41 @@ get_response(){
   fi
 }
 
+setup_docker(){
+  # pull down file and execute
+  cd /tmp || exit
+  curl -fsSL https://get.docker.com -o get-docker.sh
+  sudo sh get_docker.sh
+}
+
+setup_wifi(){
+  # prompt for ssid
+  prompt "Input SSID for wifi (name of wifi): "
+  local ssid
+  ssid=$(get_response '*' true)
+
+  # prompt for password
+  prompt "Input password for wifi: "
+  local psswd
+  psswd=$(get_response '*' true)
+
+  # create here doc and append to file
+  cat <<EOF >> $1
+auto lo
+
+iface lo inet loopback
+iface eth0 inet dhcp
+
+allow-hotplug wlan0
+auto wlan0
+
+
+iface wlan0 inet dhcp
+        wpa-ssid "$ssid"
+        wpa-psk "$psswd"
+EOF
+}
+
 setup_user(){
   # prompt/get response
   prompt "Input new username: "
@@ -40,10 +75,10 @@ setup_user(){
   username=$(get_response '*' true)
 
   # next add new user
-  echo "sudo adduser $username"
+  sudo adduser $username
 
   # now add to sudo group
-  echo "sudo adduser $username sudo"
+  sudo adduser $username sudo
 }
 
 setup_sshkey(){
@@ -76,12 +111,16 @@ main(){
   prompt "Would you like to setup new RPi user? [Y/n]: "
   get_response setup_user 'Y' false
 
-  # prompt for docker install
+  # setup wifi
+  prompt "Would you like to setup WiFi? [Y/n]: "
+  get_response setup_wifi 'Y' false
+
+  # get docker
   prompt "Would you like to install docker? [Y/n]: "
   get_response setup_docker 'Y' false
 
-  # prompt for sshkey
-  prompt "Would you like to setup SSH now? [Y/n]: "
+  # setup sshkey
+  prompt "Would you like to setup an SSH key now? [Y/n]: "
   get_response setup_sshkey 'Y' false
 }
 
