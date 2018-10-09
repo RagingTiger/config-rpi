@@ -9,5 +9,4 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/RagingTiger/config-rpi/m
 ```
 
 ## TODO
-1. Add docker install sub option (--docker)
-2. Add WiFi auto-join sub option (--wifi) ref: https://learn.adafruit.com/adafruits-raspberry-pi-lesson-3-network-setup/setting-up-wifi-with-occidentalis
+1. Fix *setup_sshkey* 
