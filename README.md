@@ -9,4 +9,5 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/RagingTiger/config-rpi/m
 ```
 
 ## TODO
-1. Fix *setup_sshkey* 
+1. Fix *setup_sshkey*
+2. Implement *setup_hostname* feature
