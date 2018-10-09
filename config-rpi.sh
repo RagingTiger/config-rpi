@@ -35,9 +35,7 @@ get_response(){
 
 setup_docker(){
   # pull down file and execute
-  cd /tmp || exit
-  curl -fsSL https://get.docker.com -o get-docker.sh
-  sudo sh get_docker.sh
+  curl -fsSL https://get.docker.com | sh
 }
 
 setup_wifi(){
