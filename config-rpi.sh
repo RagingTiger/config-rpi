@@ -81,30 +81,40 @@ setup_user(){
 
   # now add to sudo group
   sudo adduser $username sudo
+
+  # reminder to logout and delete pi user
+  echo "Remember to remove pi user as follows:"
+  echo "# login with new USER"
+  echo "$ ssh USER@raspberrypi.local"
+  echo "raspberrypi:~ $ sudo deluser pi && sudo rm -rf /home/pi"
 }
 
 setup_sshkey(){
+
+  # prompt/get response
+  prompt "Input username of account to setup sshkey for: "
+  local username
+  username=$(get_response '*' true)
+
   # path to .ssh dir
-  local ssh_dir="/home/${1}/.ssh"
+  local ssh_dir="/home/${username}/.ssh"
 
   # setup .ssh dir in $HOME
   sudo mkdir $ssh_dir
 
   # change ownership
-  sudo chown ${1}:${1} $ssh_dir
+  sudo chown ${username}:${username} $ssh_dir
 
   # now instruct user on how to copy keys
   echo "Execute on your local machine (assumes rpi is on local network):"
-  echo "  $ scp ~/.ssh/id_rsa.pub ${1}@$(hostname).local:/home/${1}/.ssh/authorized_keys"
+  echo "  $ scp ~/.ssh/id_rsa.pub ${username}@$(hostname).local:/home/${username}/.ssh/authorized_keys"
   echo ""
 
 
   # now confirm keys are copied, print next steps, and logout
   echo "After keys are copied, logout of pi user and execute the following: "
-  echo "  $ ssh ${1}@$(hostname).local"
+  echo "  $ ssh ${username}@$(hostname).local"
   echo ""
-  echo "Followed by:"
-  echo "  $ sudo deluser pi && sudo rm -rf /home/pi"
   exit
 }
 
