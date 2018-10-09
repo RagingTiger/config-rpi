@@ -41,7 +41,7 @@ setup_docker(){
   curl -fsSL https://get.docker.com | sh
 
   # test docker
-  sudo docker run tigerj/rpi-whalesay cowsay 'Docker installed!'
+  sudo docker run tigerj/rpi-whalesay 'Docker successfully installed!!!'
 }
 
 setup_wifi(){
