@@ -2,10 +2,13 @@
 
 # Reference: https://gordonlesti.com/change-default-users-on-raspberry-pi/
 
+upate(){
+  sudo apt-get update
+}
+
 prompt(){
   # prompt user
   echo -n "$1"
-
 }
 
 get_response(){
@@ -120,6 +123,10 @@ setup_sshkey(){
 }
 
 main(){
+  # update
+  prompt "Would you like to update? (recommended) [Y/n]: "
+  get_response update 'Y' false
+
   # get new user
   prompt "Would you like to setup new RPi user? [Y/n]: "
   get_response setup_user 'Y' false
