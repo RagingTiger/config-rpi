@@ -145,4 +145,5 @@ main(){
   get_response setup_sshkey 'Y' false
 }
 
+# execute
 main
