@@ -45,6 +45,20 @@ setup_docker(){
   sudo docker run tigerj/rpi-whalesay 'Docker successfully installed!!!'
 }
 
+setup_hostname(){
+  # get new hostname
+  prompt "Input new hostname for raspberry pi: "
+  local new_hostname
+  new_hostname=$(get_response '*' true)
+
+  # gain root (heheh dangerous)
+  sudo su
+
+  # update hosts file
+  echo "${new_hostname}" > /etc/hostname
+
+}
+
 setup_wifi(){
   # prompt for ssid
   prompt "Input SSID for wifi (name of wifi): "
@@ -131,6 +145,10 @@ main(){
   # get new user
   prompt "Would you like to setup new RPi user? [Y/n]: "
   get_response setup_user 'Y' false
+
+  # get new hostname`
+  prompt "Would you like to setup new hostname? [Y/n]: "
+  get_response setup_hostname 'Y' false
 
   # setup wifi
   prompt "Would you like to setup WiFi? [Y/n]: "
