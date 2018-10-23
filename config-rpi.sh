@@ -140,11 +140,11 @@ main(){
   get_response setup_rpi_update 'Y' false
 
   # get new user
-  prompt "Would you like to setup new RPi user? [Y/n]: "
+  prompt "Would you like to setup a new RPi user? [Y/n]: "
   get_response setup_user 'Y' false
 
   # get new hostname`
-  prompt "Would you like to setup new hostname? [Y/n]: "
+  prompt "Would you like to setup a new hostname? [Y/n]: "
   get_response setup_hostname 'Y' false
 
   # setup wifi
