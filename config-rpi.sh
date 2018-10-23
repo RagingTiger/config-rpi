@@ -7,6 +7,10 @@ prompt(){
   echo -n "$1"
 }
 
+fresh_restart(){
+  sudo shutdown -r 1
+}
+
 get_response(){
   # get user input
   local response
@@ -158,6 +162,10 @@ main(){
   # setup sshkey
   prompt "Would you like to setup an SSH key now? [Y/n]: "
   get_response setup_sshkey 'Y' false
+
+  # restart
+  prompt "Restart RPi for changes to take effect (hostname, user)? [Y/n]: "
+  get_response fresh_restart 'Y' false
 }
 
 # execute
