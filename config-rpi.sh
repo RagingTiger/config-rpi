@@ -51,11 +51,8 @@ setup_hostname(){
   local new_hostname
   new_hostname=$(get_response '*' true)
 
-  # gain root (heheh dangerous)
-  sudo su
-
   # update hosts file
-  echo "${new_hostname}" > /etc/hostname
+  sudo sh -c "echo ${new_hostname} > /etc/hostname"
 
 }
 
