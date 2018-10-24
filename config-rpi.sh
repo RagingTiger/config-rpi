@@ -171,10 +171,6 @@ main(){
   prompt "Would you like to delete old RPi user (recommended)? [Y\n]: "
   get_response setup_delpi 'Y' false
 
-  # get new hostname`
-  prompt "Would you like to setup a new hostname? [Y/n]: "
-  get_response setup_hostname 'Y' false
-
   # setup wifi
   prompt "Would you like to setup WiFi? [Y/n]: "
   get_response setup_wifi 'Y' false
@@ -186,6 +182,10 @@ main(){
   # setup sshkey
   prompt "Would you like to setup an SSH key now? [Y/n]: "
   get_response setup_sshkey 'Y' false
+
+  # get new hostname`
+  prompt "Would you like to setup a new hostname? [Y/n]: "
+  get_response setup_hostname 'Y' false
 
   # restart
   prompt "Restart RPi for changes to take effect (hostname, user)? [Y/n]: "
