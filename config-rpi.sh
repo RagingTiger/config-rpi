@@ -5,6 +5,7 @@
 prompt(){
   # prompt user
   echo -n "$1"
+  printf "\n\n\n"
 }
 
 fresh_restart(){
