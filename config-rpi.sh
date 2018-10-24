@@ -4,8 +4,8 @@
 
 prompt(){
   # prompt user
-  echo -n "$1"
   printf "\n\n\n"
+  echo -n "$1"
 }
 
 fresh_restart(){
