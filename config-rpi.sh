@@ -55,8 +55,16 @@ setup_hostname(){
   local new_hostname
   new_hostname=$(get_response '*' true)
 
+  # update hostname file
+  sudo sh -c "echo ${new_hostname} > /etc/hostname" && \
+
   # update hosts file
-  sudo sh -c "echo ${new_hostname} > /etc/hostname"
+  sudo sed -i.bak "s/$(hostname)/${new_hostname}/g" /etc/hosts && \
+
+  # give response
+  printf "\n\n"
+  echo "Host will now be addressable at: ${new_hostname}.local"
+  printf "\n\n"
 
 }
 
