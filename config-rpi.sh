@@ -41,6 +41,16 @@ setup_rpi_update(){
   sudo apt-get update
 }
 
+setup_delpi(){
+  # execute only if not pi
+  if [[ "$USER" != "pi" ]]; then
+    sudo deluser pi && sudo rm -rf /home/pi
+  else
+    echo "You must create a new user other than 'pi', and login as that user \
+          and then rerun this script"
+  fi
+}
+
 setup_docker(){
   # pull down file and execute
   curl -fsSL https://get.docker.com | sh
@@ -115,6 +125,8 @@ setup_user(){
   echo "# login with new USER"
   echo "$ ssh USER@raspberrypi.local"
   echo "raspberrypi:~ $ sudo deluser pi && sudo rm -rf /home/pi"
+  printf "\n"
+  echo "Or simply choose to 'Delete pi user' when prompted by config-rpi.sh"
 }
 
 setup_sshkey(){
@@ -154,6 +166,10 @@ main(){
   # get new user
   prompt "Would you like to setup a new RPi user? [Y/n]: "
   get_response setup_user 'Y' false
+
+  # delete old user
+  prompt "Would you like to delete old RPi user (recommended)? [Y\n]: "
+  get_response setup_delpi 'Y' false
 
   # get new hostname`
   prompt "Would you like to setup a new hostname? [Y/n]: "
