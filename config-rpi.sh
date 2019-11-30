@@ -172,6 +172,21 @@ setup_sudo_docker_privileges(){
   echo "NOTE: You must logout and login for sudo privileges to take affect"
 }
 
+setup_docker_data_path(){
+  # get path
+  prompt "Input location for new docker data path: "
+  local new_data_path
+  new_data_path=$(get_response '*' true)
+
+  # set docker daemon.json with new path
+  echo "Creating /etc/docker/daemon.json file with new data path"
+  sudo cat << EOF | sudo tee /etc/docker/daemon.json
+{
+  "data-path": "$new_data_path"
+}
+EOF
+}
+
 main(){
   # update
   prompt "Would you like to update? (recommended) [Y/n]: "
@@ -202,8 +217,12 @@ main(){
   get_response setup_hostname 'Y' false
 
   # setup docker sudo privileges
-  prompt "Would you like to configure sudo privileges for docker? [Y/n]:"
+  prompt "Would you like to configure sudo privileges for docker? [Y/n]: "
   get_response setup_sudo_docker_privileges 'Y' false
+
+  # setup docker daemon data path
+  prompt "Would you like to change default docker data path? [Y\n]: "
+  get_response setup_docker_data_path 'Y' false
 
   # restart
   prompt "Restart RPi for changes to take effect (hostname, user)? [Y/n]: "
