@@ -57,7 +57,7 @@ setup_docker(){
   curl -fsSL https://get.docker.com | sh
 
   # test docker
-  sudo docker run tigerj/rpi-whalesay 'Docker successfully installed!!!'
+  sudo docker run --rm tigerj/rpi-whalesay 'Docker successfully installed!!!'
 }
 
 setup_hostname(){
@@ -159,6 +159,19 @@ setup_sshkey(){
   exit
 }
 
+setup_sudo_docker_privileges(){
+  # reminder to logout and delete pi user
+  if [[ "$USER" == "pi" ]]; then
+    echo "WARNING: pi user is not secure create a new user, login, and rerun"
+    exit
+  fi
+
+  # add user to docker group
+  echo "You are about to setup sudo privileges for $USER."
+  sudo usermod -aG docker $USER
+  echo "NOTE: You must logout and login for sudo privileges to take affect"
+}
+
 main(){
   # update
   prompt "Would you like to update? (recommended) [Y/n]: "
@@ -187,6 +200,10 @@ main(){
   # get new hostname`
   prompt "Would you like to setup a new hostname? [Y/n]: "
   get_response setup_hostname 'Y' false
+
+  # setup docker sudo privileges
+  prompt "Would you like to configure sudo privileges for docker? [Y/n]:"
+  get_response setup_sudo_docker_privileges 'Y' false
 
   # restart
   prompt "Restart RPi for changes to take effect (hostname, user)? [Y/n]: "
