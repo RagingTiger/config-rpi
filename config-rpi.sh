@@ -57,7 +57,7 @@ setup_docker(){
   curl -fsSL https://get.docker.com | sh
 
   # test docker
-  sudo docker run --rm tigerj/rpi-whalesay 'Docker successfully installed!!!'
+  sudo docker run --rm tigerj/whalesay 'Docker successfully installed!!!'
 }
 
 setup_hostname(){
