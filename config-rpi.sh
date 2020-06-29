@@ -190,12 +190,22 @@ EOF
 setup_pi_cam(){
   # Ref: https://raspberrypi.stackexchange.com/questions/14229/how-can-i-
   #      enable-the-camera-without-using-raspi-config#answer-29972
+  # make backup
+  echo ""
+  echo "Creating backup config.txt at /boot/config.bak"
+  echo ""
+  sudo cp /boot/config.txt /boot/config.bak
+
   # add config lines to /boot/config file
-  sudo cat << EOF >> /boot/config.txt
+  sudo cat << EOF | sudo tee -a /boot/config.txt
 start_x=1             # essential
 gpu_mem=128           # at least, or maybe more if you wish
 disable_camera_led=1  # optional, if you don't want the led to glow
 EOF
+
+  # notify of need to reboot
+  echo ""
+  echo "NOTE: Remember to reboot for changes to take place."
 }
 
 main(){
