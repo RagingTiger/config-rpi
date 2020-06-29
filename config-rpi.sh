@@ -187,6 +187,17 @@ setup_docker_data_path(){
 EOF
 }
 
+setup_pi_cam(){
+  # Ref: https://raspberrypi.stackexchange.com/questions/14229/how-can-i-
+  #      enable-the-camera-without-using-raspi-config#answer-29972
+  # add config lines to /boot/config file
+  sudo cat << EOF >> /boot/config.txt
+start_x=1             # essential
+gpu_mem=128           # at least, or maybe more if you wish
+disable_camera_led=1  # optional, if you don't want the led to glow
+EOF
+}
+
 main(){
   # update
   prompt "Would you like to update? (recommended) [Y/n]: "
@@ -224,8 +235,12 @@ main(){
   prompt "Would you like to change default docker data path? [Y\n]: "
   get_response setup_docker_data_path 'Y' false
 
+  # enable pi camera
+  prompt "Would you like to enable Pi Camera? [Y\n]: "
+  get_response setup_pi_cam 'Y' false
+
   # restart
-  prompt "Restart RPi for changes to take effect (hostname, user)? [Y/n]: "
+  prompt "Restart RPi for changes to take effect (hostname, user, camera)? [Y/n]: "
   get_response fresh_restart 'Y' false
 }
 
